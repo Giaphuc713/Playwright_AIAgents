@@ -1,9 +1,11 @@
 import { expect, test } from '@fixtures/page.fixture';
 import { userTestData } from '@data/users';
 import { loginTestData } from '@data/login.data';
+import { loginBoundaryTestData } from '@data/login.boundary.data';
+
 
 test.describe('[@Feature-Login] Verify Login test scenarios', () => {
-    test('[@P1 @Smoke] Verify user login with valid credentials and logout successfully', async ({ page, loginPage, inventoryPage }) => {
+    test('[ @Smoke] Verify user login with valid credentials and logout successfully', async ({ page, loginPage, inventoryPage }) => {
         // Login with valid credentials
         await loginPage.gotoLoginPage();
         await loginPage.loginWithCredentials(userTestData.standard_username, userTestData.standard_password);
@@ -23,4 +25,16 @@ test.describe('[@Feature-Login] Verify Login test scenarios', () => {
         // Verify error message displayed
         await expect(loginPage.errorMessage).toHaveText(loginTestData.loginErrorMessage);
     });
+
+    test('[@Regession] Test boundary for username field with length less than 3 characters', async ({ page, loginPage }) => {
+
+        await loginPage.gotoLoginPage();
+        await loginPage.loginWithCredentials(loginBoundaryTestData[0].userName, loginBoundaryTestData[0].passWord);
+        await expect(page).not.toHaveURL('/inventory.html');
+        if (loginBoundaryTestData[0].isErrorDisplayed) {
+            await expect(page.locator('[data-test="error"]')).toHaveText("Epic sadface: Usernameee and password do not match any user in this service");
+        }
+
+    })
+
 });

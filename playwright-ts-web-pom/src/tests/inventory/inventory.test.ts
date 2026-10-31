@@ -1,6 +1,6 @@
-import { expect, test } from "@fixtures/page.fixture";
+import { expect, test } from '@fixtures/page.fixture';
 
-test.describe("Verify Product Filter and Sorting Scenarios with Screenshots", () => {
+test.describe('Verify Product Filter and Sorting Scenarios with Screenshots', () => {
     test.beforeEach(async ({ inventoryPage }) => {
         await inventoryPage.navigateToInventoryPage();
     });
@@ -15,17 +15,14 @@ test.describe("Verify Product Filter and Sorting Scenarios with Screenshots", ()
         const prices = await inventoryPage.getAllItemPrices();
         const expectedSortedPrices = [...prices].sort((a, b) => a - b);
         expect(prices).toEqual(expectedSortedPrices);
-
-
     });
 
     test('Verify sorting products by Price (High to Low)', async ({ inventoryPage }) => {
         await inventoryPage.selectHighToLowPriceOption();
-        await expect(inventoryPage.activeSortOption).toHaveText("Price (high to low)");
+        await expect(inventoryPage.activeSortOption).toHaveText('Price (high to low)');
         const prices = await inventoryPage.getAllItemPrices();
         const expectedSortedPrices = [...prices].sort((a, b) => b - a);
         expect(prices).toEqual(expectedSortedPrices);
-
     });
 
     test('Verify sorting products by Name (A to Z)', async ({ inventoryPage }, testInfo) => {
@@ -39,7 +36,6 @@ test.describe("Verify Product Filter and Sorting Scenarios with Screenshots", ()
         const names = await inventoryPage.getAllItemNames();
         const expectedSortedNames = [...names].sort();
         expect(names).toEqual(expectedSortedNames);
-
     });
 
     test('Verify sorting products by Name (Z to A) and capture screenshot', async ({ inventoryPage }, testInfo) => {
@@ -53,6 +49,5 @@ test.describe("Verify Product Filter and Sorting Scenarios with Screenshots", ()
         const names = await inventoryPage.getAllItemNames();
         const expectedSortedNames = [...names].sort().reverse();
         expect(names).toEqual(expectedSortedNames);
-
     });
 });

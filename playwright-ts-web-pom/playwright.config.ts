@@ -10,7 +10,7 @@ require('dotenv').config({
     override: true,
 });
 
-const authFilePath = `.auth/${process.env.TEST_ENV || 'dev'}.json`;
+// const authFilePath = `.auth/${process.env.TEST_ENV || 'dev'}.json`;
 
 export default defineConfig({
     testDir: './src/tests',
@@ -47,18 +47,18 @@ export default defineConfig({
             name: 'chrome',
             use: {
                 ...devices['Desktop Chrome'],
-                storageState: authFilePath,
+                // storageState: authFilePath,
             },
-            dependencies: ['setup'],
+            //dependencies: ['setup'],
         },
 
         {
             name: 'firefox',
             use: {
                 ...devices['Desktop Firefox'],
-                storageState: authFilePath,
+                //storageState: authFilePath,
             },
-            dependencies: ['setup'],
+            // dependencies: ['setup'],
         },
     ],
 });
